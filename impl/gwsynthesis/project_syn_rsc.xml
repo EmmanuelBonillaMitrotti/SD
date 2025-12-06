@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module name="mouse_uart_top" Register="24" Lut="45" T_Register="90(24)" T_Alu="15(0)" T_Lut="131(45)">
+ <SubModule name="mouse_rx" Register="29" Lut="56" T_Register="66(29)" T_Alu="15(0)" T_Lut="86(56)">
+  <SubModule name="uart_inst" Register="37" Alu="15" Lut="30" T_Register="37(37)" T_Alu="15(15)" T_Lut="30(30)"/>
+ </SubModule>
+</Module>

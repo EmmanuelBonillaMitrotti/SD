@@ -1,0 +1,19 @@
+// Constraint file para Tang Primer 25K - Mouse UART Receiver
+// Pin assignments
+
+// Reloj del sistema (50MHz)
+IO_LOC   "clk"      E2;
+IO_PORT  "clk"      IO_TYPE=LVCMOS33;
+
+// Reset (boton)
+IO_LOC   "rst_n"    H10;
+IO_PORT  "rst_n"    IO_TYPE=LVCMOS33;
+
+// UART RX para recibir datos del mouse (desde Arduino TX pin 7)
+IO_LOC   "uart_rx"  B2;
+IO_PORT  "uart_rx"  IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+// LED para debug (solo uno disponible por defecto)
+IO_LOC   "led_left"   E8;
+IO_PORT  "led_left"   IO_TYPE=LVCMOS33;
+
