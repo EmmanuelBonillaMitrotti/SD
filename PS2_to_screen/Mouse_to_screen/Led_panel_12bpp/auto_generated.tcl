@@ -1,5 +1,5 @@
 # Script TCL generado automáticamente desde Makefile
-# Fecha: Sat Dec  6 07:09:28 PM -05 2025
+# Fecha: Sat Dec  6 07:39:14 PM -05 2025
 
 # Configurar dispositivo
 set_device -name GW5A-25A GW5A-LV25MG121NC1/I0
@@ -12,11 +12,11 @@ add_file -type verilog mouse_uart_receiver.v
 add_file -type verilog uart.v
 add_file -type verilog count.v
 add_file -type verilog ctrl_lp4k.v
-add_file -type verilog memory_V2.v
+add_file -type verilog memory_dual.v
 add_file -type verilog comp.v
 add_file -type verilog lsr_led.v
 add_file -type verilog mux_led.v
-add_file -type verilog Mouse_to_screen.v
+add_file -type verilog Mouse_paint.v
 add_file -type verilog mult.v
 
 # Configurar opciones del proyecto

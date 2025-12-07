@@ -1,14 +1,20 @@
-module Mouse_to_screen#(
+// Módulo: Mouse_paint
+// Descripción: Maneja el cursor del mouse y pinta cuando se presiona click izquierdo
+// - Cursor negro que se mueve sin dejar rastro (solo muestra posición actual)
+// - Al presionar click izquierdo, pinta permanentemente en negro
+module Mouse_paint #(
     parameter X_MAX = 63,         
     parameter Y_MAX = 63,         
     parameter IMG_WIDTH = 16'd64, 
     parameter IMG_DIV = 32,       
-    parameter PIXEL_COLOR = 12'h00F 
+    parameter CURSOR_COLOR = 12'h000,  // Color del cursor (negro)
+    parameter PAINT_COLOR = 12'h00F    // Color de pintado (azul oscuro)
 )(
     input              clk,
     input              reset,      
     input [8:0]        PS2_Xdata,
     input [8:0]        PS2_Ydata,
+    input              btn_left,     // Botón izquierdo para pintar
     input  [11:0]      b_rdata0,
     input  [11:0]      b_rdata1,
     output reg         wr0,
@@ -22,13 +28,16 @@ localparam START        = 3'b000;
 localparam START_MULT   = 3'b001; 
 localparam WAIT_MULT    = 3'b010; 
 localparam RESTORE      = 3'b011; 
-localparam PAINT        = 3'b100; 
+localparam PAINT_CURSOR = 3'b100;
+localparam PAINT_PERM   = 3'b101;  // Pintar permanente
+
 reg [11:0] dir_anterior; 
 reg        mem_anterior; 
 reg [6:0] x_fin, y_fin, y_offset;
 reg       sel_mem_actual;
+reg       painting;      // Flag: estamos pintando permanente
 
-//Calculo de valor final de X,Y
+// Cálculo de valor final de X,Y
 always @(*) begin
     if (PS2_Xdata > X_MAX)
         x_fin = X_MAX;
@@ -59,7 +68,7 @@ wire [11:0] y_mult_result = result_mult[11:0];
 wire [11:0] dir_actual = y_mult_result + x_fin; 
 wire movimiento_detectado = (dir_actual != dir_anterior) && (estado == START);
 
-//Aplicaciòn del modulo de multiplicaciòn
+// Módulo de multiplicación
 mult u_multiplier (
     .clk    (clk),
     .reset  (reset),
@@ -70,7 +79,7 @@ mult u_multiplier (
     .done   (done_mult)              
 );
 
-//Maquina de control
+// Máquina de estados
 always @(posedge clk) begin
     wr0 <= 0;
     wr1 <= 0;
@@ -80,11 +89,13 @@ always @(posedge clk) begin
         estado <= START;
         dir_anterior <= 12'h0;
         mem_anterior <= 1'b0;
+        painting <= 1'b0;
     end else begin
         
         case (estado)
             START: begin
                 if (movimiento_detectado) begin
+                    painting <= btn_left;  // Guardar si estamos pintando
                     estado <= START_MULT; 
                 end
             end
@@ -96,7 +107,6 @@ always @(posedge clk) begin
 
             WAIT_MULT: begin
                 if (done_mult) begin
-                    
                     estado <= RESTORE;
                 end else begin
                     estado <= WAIT_MULT; 
@@ -104,6 +114,7 @@ always @(posedge clk) begin
             end
 
             RESTORE: begin 
+                // Restaurar solo si NO estábamos pintando en esa posición
                 address <= dir_anterior; 
                 
                 if (mem_anterior == 0) begin 
@@ -115,12 +126,37 @@ always @(posedge clk) begin
                     wr1 <= 1;
                 end
                 
-                estado <= PAINT; 
+                // Si estamos pintando, ir a pintar permanente
+                if (painting) begin
+                    estado <= PAINT_PERM;
+                end else begin
+                    estado <= PAINT_CURSOR;
+                end
             end
 
-            PAINT: begin 
+            PAINT_PERM: begin
+                // Pintar permanente en el backup (para que persista)
+                // Esto modifica B_MEM para que el color quede fijo
+                address <= dir_actual;
+                wdata <= PAINT_COLOR;
+                
+                if (sel_mem_actual == 0) begin 
+                    wr0 <= 1;
+                end 
+                else begin 
+                    wr1 <= 1;
+                end
+
+                dir_anterior <= dir_actual;
+                mem_anterior <= sel_mem_actual;
+                
+                estado <= PAINT_CURSOR;
+            end
+
+            PAINT_CURSOR: begin 
+                // Pintar cursor (temporal, se restaurará al moverse)
                 address <= dir_actual; 
-                wdata <= PIXEL_COLOR; 
+                wdata <= CURSOR_COLOR; 
                 
                 if (sel_mem_actual == 0) begin 
                     wr0 <= 1;

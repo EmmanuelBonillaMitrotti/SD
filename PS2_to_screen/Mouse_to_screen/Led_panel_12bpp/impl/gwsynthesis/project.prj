@@ -9,11 +9,11 @@
         <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/uart.v" type="verilog"/>
         <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/count.v" type="verilog"/>
         <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/ctrl_lp4k.v" type="verilog"/>
-        <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/memory_V2.v" type="verilog"/>
+        <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/memory_dual.v" type="verilog"/>
         <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/comp.v" type="verilog"/>
         <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/lsr_led.v" type="verilog"/>
         <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/mux_led.v" type="verilog"/>
-        <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/Mouse_to_screen.v" type="verilog"/>
+        <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/Mouse_paint.v" type="verilog"/>
         <File path="/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/mult.v" type="verilog"/>
     </FileList>
     <OptionList>

@@ -108,49 +108,58 @@ module paint_uart_top (
     //=========================================================================
     // Acumulador de posición del mouse
     //=========================================================================
-    localparam signed [8:0] POS_MIN = 9'd0;
-    localparam signed [8:0] POS_MAX = 9'd63;
+    localparam signed [8:0] POS_MIN = 9'sd0;
+    localparam signed [8:0] POS_MAX = 9'sd63;
     
-    wire signed [8:0] delta_x_signed = $signed(uart_delta_x);
-    wire signed [8:0] delta_y_signed = $signed(uart_delta_y);
+    // Extensión de signo correcta: int8 -> int9
+    wire signed [8:0] delta_x_signed = {{1{uart_delta_x[7]}}, uart_delta_x};
+    wire signed [8:0] delta_y_signed = {{1{uart_delta_y[7]}}, uart_delta_y};
+    
+    // Cálculos temporales
+    wire signed [9:0] new_x = pos_x + delta_x_signed;
+    wire signed [9:0] new_y = pos_y - delta_y_signed;  // Y invertido
     
     always @(posedge clk) begin
         if (rst) begin
             pos_x <= 9'd32;
             pos_y <= 9'd32;
         end else if (data_valid) begin
-            // Acumular delta X
-            if (pos_x + delta_x_signed > POS_MAX)
+            // Acumular delta X con límites
+            if (new_x > POS_MAX)
                 pos_x <= POS_MAX;
-            else if (pos_x + delta_x_signed < POS_MIN)
+            else if (new_x < POS_MIN)
                 pos_x <= POS_MIN;
             else
-                pos_x <= pos_x + delta_x_signed;
+                pos_x <= new_x[8:0];
             
-            // Acumular delta Y (invertido)
-            if (pos_y - delta_y_signed > POS_MAX)
+            // Acumular delta Y con límites
+            if (new_y > POS_MAX)
                 pos_y <= POS_MAX;
-            else if (pos_y - delta_y_signed < POS_MIN)
+            else if (new_y < POS_MIN)
                 pos_y <= POS_MIN;
             else
-                pos_y <= pos_y - delta_y_signed;
+                pos_y <= new_y[8:0];
         end
     end
     
     //=========================================================================
-    // Mouse_to_screen: Convierte posición a dirección de memoria
+    // Mouse_paint: Maneja cursor y pintado
+    // - Cursor negro que se mueve
+    // - Click izquierdo: pinta permanentemente
     //=========================================================================
-    Mouse_to_screen #(
+    Mouse_paint #(
         .X_MAX(63),
         .Y_MAX(63),
         .IMG_WIDTH(16'd64),
         .IMG_DIV(32),
-        .PIXEL_COLOR(12'h000)
+        .CURSOR_COLOR(12'h000),  // Cursor negro
+        .PAINT_COLOR(12'h00F)    // Pintura azul
     ) mouse_painter (
         .clk(clk),
         .reset(rst),
         .PS2_Xdata(pos_x),
         .PS2_Ydata(pos_y),
+        .btn_left(btn_left),     // Botón para pintar
         .b_rdata0(b_rdata0),
         .b_rdata1(b_rdata1),
         .wr0(wr0),
