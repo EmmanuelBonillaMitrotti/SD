@@ -17,6 +17,7 @@ module memory_dual#(
     input             wr0,
     input             wr1,
     input  [11:0]     wdata,
+    input             paint_permanent,  // Escribir también en backup (pintura permanente)
     output wire [11:0] b_rdata0,
     output wire [11:0] b_rdata1
 );
@@ -41,9 +42,13 @@ end
 always @(posedge clk) begin
     if (wr0) begin 
         MEM0[addr_write] <= wdata;
+        if (paint_permanent)
+            B_MEM0[addr_write] <= wdata;  // Pintura permanente
     end
     if (wr1) begin 
         MEM1[addr_write] <= wdata;
+        if (paint_permanent)
+            B_MEM1[addr_write] <= wdata;  // Pintura permanente
     end
 end
 

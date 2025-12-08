@@ -26,7 +26,7 @@ module paint_uart_top (
     parameter NUM_PIXELS = NUM_COLS * NUM_ROWS;
     parameter HALF_SCREEN = NUM_PIXELS / 2;
     parameter BIT_DEPTH = 4;
-    parameter DELAY = 10;
+    parameter DELAY = 5;
     
     //=========================================================================
     // Señales internas
@@ -49,6 +49,7 @@ module paint_uart_top (
     wire [11:0] wdata;
     wire [11:0] m2s_address;
     wire [11:0] b_rdata0, b_rdata1;
+    wire        paint_permanent;  // Pintura permanente
     
     // Señales del controlador del panel LED
     wire        w_ZR, w_ZC, w_ZD, w_ZI;
@@ -165,7 +166,8 @@ module paint_uart_top (
         .wr0(wr0),
         .wr1(wr1),
         .wdata(wdata),
-        .address(m2s_address)
+        .address(m2s_address),
+        .paint_permanent(paint_permanent)
     );
     
     //=========================================================================
@@ -189,6 +191,7 @@ module paint_uart_top (
         .wr0(wr0),
         .wr1(wr1),
         .wdata(wdata),
+        .paint_permanent(paint_permanent),
         .b_rdata0(b_rdata0),
         .b_rdata1(b_rdata1)
     );

@@ -41,7 +41,7 @@ Compiling module 'count(width=10)'("/home/arielo/repos/SD/PS2_to_screen/Mouse_to
 WARN  (EX3791) : Expression size 12 truncated to fit in target size 11("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/count.v":15)
 Compiling module 'count(width=1)'("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/count.v":1)
 WARN  (EX3791) : Expression size 3 truncated to fit in target size 2("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/count.v":15)
-Compiling module 'lsr_led(init_value=10)'("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/lsr_led.v":1)
+Compiling module 'lsr_led(init_value=5)'("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/lsr_led.v":1)
 Compiling module 'comp_4k'("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/comp.v":1)
 Compiling module 'mux_led'("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/mux_led.v":1)
 Compiling module 'ctrl_lp4k'("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/ctrl_lp4k.v":1)
@@ -62,7 +62,6 @@ Running technical mapping ...
 [75%] Tech-Mapping Phase 2 completed
 [80%] Tech-Mapping Phase 3 completed
 [90%] Tech-Mapping Phase 4 completed
-WARN  (NL0002) : The module "comp_4k" instantiated to "compa" is swept in optimizing("/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/paint_uart_top.v":225)
 [95%] Generate netlist file "/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/impl/gwsynthesis/project.vg" completed
 [100%] Generate report file "/home/arielo/repos/SD/PS2_to_screen/Mouse_to_screen/Led_panel_12bpp/impl/gwsynthesis/project_syn.rpt.html" completed
 GowinSynthesis finish

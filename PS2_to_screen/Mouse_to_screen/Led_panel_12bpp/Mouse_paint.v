@@ -12,15 +12,16 @@ module Mouse_paint #(
 )(
     input              clk,
     input              reset,      
-    input [8:0]        PS2_Xdata,
-    input [8:0]        PS2_Ydata,
+    input signed [8:0] PS2_Xdata,
+    input signed [8:0] PS2_Ydata,
     input              btn_left,     // Botón izquierdo para pintar
     input  [11:0]      b_rdata0,
     input  [11:0]      b_rdata1,
     output reg         wr0,
     output reg         wr1,
     output reg [11:0]  wdata,
-    output reg [11:0]  address
+    output reg [11:0]  address,
+    output reg         paint_permanent  // Indica escritura permanente (también en backup)
 );
 
 reg [2:0] estado; 
@@ -84,6 +85,7 @@ always @(posedge clk) begin
     wr0 <= 0;
     wr1 <= 0;
     init_mult <= 0;
+    paint_permanent <= 0;
     
     if (reset) begin
         estado <= START;
@@ -139,6 +141,7 @@ always @(posedge clk) begin
                 // Esto modifica B_MEM para que el color quede fijo
                 address <= dir_actual;
                 wdata <= PAINT_COLOR;
+                paint_permanent <= 1;  // Indicar que es pintura permanente
                 
                 if (sel_mem_actual == 0) begin 
                     wr0 <= 1;
