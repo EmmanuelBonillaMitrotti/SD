@@ -26,7 +26,7 @@ module paint_uart_top (
     parameter NUM_PIXELS = NUM_COLS * NUM_ROWS;
     parameter HALF_SCREEN = NUM_PIXELS / 2;
     parameter BIT_DEPTH = 4;
-    parameter DELAY = 5;
+    parameter DELAY = 2;
     
     //=========================================================================
     // Señales internas
@@ -151,10 +151,9 @@ module paint_uart_top (
     Mouse_paint #(
         .X_MAX(63),
         .Y_MAX(63),
-        .IMG_WIDTH(16'd64),
         .IMG_DIV(32),
         .CURSOR_COLOR(12'h000),  // Cursor negro
-        .PAINT_COLOR(12'h00F)    // Pintura azul
+        .PAINT_COLOR(12'hF00)    // Pintura roja
     ) mouse_painter (
         .clk(clk),
         .reset(rst),
