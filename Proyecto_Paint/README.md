@@ -1,6 +1,11 @@
 # Proyecto Paint - FPGA
 
-Sistema de pintado usando un mouse PS/2 conectado a un Arduino que envía datos por UART a una FPGA Tang Primer 25K, la cual controla un panel LED RGB de 64x64.
+El proyecto es un sistema de pintado usando un mouse PS/2 conectado a un Arduino que envía datos por UART a una FPGA Tang Primer 25K, la cual controla un panel LED RGB de 64x64.
+
+Las conexiones del proyecto se muestran en el siguiente diagrama:
+
+<img width="403" height="251" alt="image" src="https://github.com/user-attachments/assets/a21d9f2a-0f11-4544-9863-92a6fe1ef155" />
+
 
 ## Estructura
 
