@@ -1,5 +1,17 @@
 # Proyecto Paint - FPGA
 
+---
+
+## Integrantes del Equipo
+
+| Nombre Completo | Identificación SIA |
+|----------------|-------------------|
+| [Nombre 1] | [ID 1] |
+| [Nombre 2] | [ID 2] |
+| [Nombre 3] | [ID 3] |
+
+---
+
 Sistema de pintado usando un mouse PS/2 conectado a un Arduino que envía datos por UART a una FPGA Tang Primer 25K, la cual controla un panel LED RGB de 64x64.
 
 El proyecto implementa una arquitectura pipeline donde la data del mouse atraviesa tres etapas principales (Adquisición, Procesamiento y Visualización) antes de afectar la pantalla LED.
