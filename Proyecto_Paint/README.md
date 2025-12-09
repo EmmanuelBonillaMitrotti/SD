@@ -116,6 +116,21 @@ Diagrama de estados Lógica de Pantalla
 
 ![Diagrama de estados PS2_TO_SCREEN](https://github.com/user-attachments/assets/8c0d0adb-f47a-495a-9a36-4db3aa7fd124)
 
+### 5. Conexión FPGA a pantalla (Lectura de memoria)
+
+Con este modulo se permite que la pnatalla lea la memoria ya modificada por la lógica de pintado, y muestra la imagen en el panel LED.
+
+Diagrama de Flujo
+
+<img width="584" height="1135" alt="Screenshot 2025-12-08 233329" src="https://github.com/user-attachments/assets/675c46eb-37df-4bed-a49c-1678cc857a6d" />
+
+Camino de Datos
+
+<img width="913" height="658" alt="Screenshot 2025-12-08 233348" src="https://github.com/user-attachments/assets/1ef5d0ad-f54f-4645-99c8-c82adc4a2952" />
+
+Diagrama de estados
+
+<img width="1179" height="1112" alt="Screenshot 2025-12-08 233402" src="https://github.com/user-attachments/assets/5bdc517b-2a72-470e-a508-4cb9bbcc8724" />
 
 ## Cómo usar
 
