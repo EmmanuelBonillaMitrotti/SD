@@ -2,6 +2,9 @@
 
 Sistema de pintado usando un mouse PS/2 conectado a un Arduino que envía datos por UART a una FPGA Tang Primer 25K, la cual controla un panel LED RGB de 64x64.
 aaaaaaaaaa
+
+<img width="1034" height="423" alt="image" src="https://github.com/user-attachments/assets/dc089d9e-c724-4609-999a-738e8db5fe8c" />
+
 ## Estructura
 
 ```
