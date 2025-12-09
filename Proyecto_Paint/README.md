@@ -19,6 +19,13 @@ Las pines de conexión para cada parte se presentan en las siguiente tablas:
 | VCC | 5V |
 | GND | GND |
 
+### Conexión UART: ARDUINO UNO (TX) a FPGA (RX)
+
+| ARDUINO UNO TX pin | FPGA RX pin |
+| :---: | :---: |
+| 7 | B2 |
+| GND | GND |
+
 ## Estructura
 
 ```
