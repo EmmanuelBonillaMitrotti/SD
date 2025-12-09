@@ -71,9 +71,15 @@ El módulo UART en la FPGA se encarga de deserializar los datos entrantes. Utili
 * **Diagrama de Flujo:** Muestra la máquina de estados de recepción (Detección de Start Bit -> Muestreo de Bits 0-7 -> Stop Bit).
 * **Camino de Datos:** Ilustra los registros de desplazamiento y contadores utilizados.
 
-| Diagrama de Flujo UART | Camino de Datos UART |
-| :---: | :---: |
-| ![Flujo UART](assets/Protocolo_UART_Flujo.png) | ![Data Path UART](assets/Data_Path_UART.png) |
+Diagrama de Flujo UART 
+
+![Protocolo UART](https://github.com/user-attachments/assets/1425b0ae-a033-4ea5-a168-539f06cf7889)
+
+
+Camino de Datos UART 
+
+![Data Path UART](https://github.com/user-attachments/assets/e4e35282-f9b6-438d-b667-2fee0377618c)
+
 
 ### 3. Interfaz UART: Arduino a FPGA
 Este módulo superior gestiona la recepción de paquetes completos de 3 bytes provenientes del Arduino. La máquina de estados asegura que los datos se interpreten en el orden correcto: `[Byte 1: Botones]` -> `[Byte 2: Movimiento X]` -> `[Byte 3: Movimiento Y]`.
@@ -81,9 +87,15 @@ Este módulo superior gestiona la recepción de paquetes completos de 3 bytes pr
 * **Diagrama de Flujo:** Describe la FSM que espera secuencialmente los 3 bytes y valida la integridad del paquete.
 * **Camino de Datos:** Muestra el buffer de 3 posiciones y cómo se asignan a las señales de salida (`btn`, `delta_x`, `delta_y`).
 
-| Flujo Arduino-FPGA | Datapath Arduino-FPGA |
-| :---: | :---: |
-| ![Flujo Arduino FPGA](assets/UART_ARDUINO_FPGA.png) | ![Data Path Arduino FPGA](assets/Data_Path_UART_ARDUINO_FPGA.png) |
+Flujo Arduino-FPGA
+
+![UART ARDUINO - FPGA](https://github.com/user-attachments/assets/03e398d7-dab6-4472-b370-97629a7e0514)
+
+
+Datapath Arduino-FPGA
+
+![Data Path UART ARDUINO](https://github.com/user-attachments/assets/5125b8cf-ae13-48ef-ae73-eadaf5fbb809)
+
 
 ### 4. Controlador FPGA a Pantalla (Lógica de Pintado)
 Este es el núcleo del proyecto (`PS2_TO_SCREEN`). Recibe las coordenadas del mouse, calcula la posición de memoria correspondiente en la matriz de 64x64, y actualiza el color del píxel si se detecta un clic ("Pintar"). También maneja la lógica de lectura de memoria para refrescar el panel LED continuamente.
@@ -91,9 +103,19 @@ Este es el núcleo del proyecto (`PS2_TO_SCREEN`). Recibe las coordenadas del mo
 * **Diagrama de Flujo:** Detalla el algoritmo para limitar las coordenadas (0-63), calcular la dirección de memoria (`Address = Y*64 + X`) y la lógica de escritura/lectura.
 * **Camino de Datos:** Muestra los comparadores (para límites de pantalla), sumadores (para movimiento relativo) y la interfaz con la memoria de video.
 
-| Flujo Lógica de Pantalla | Datapath Lógica de Pantalla |
-| :---: | :---: |
-| ![Flujo PS2 to Screen](assets/PS2_to_Screen.png) | ![Data Path PS2 to Screen](assets/Data_Path_PS2_TO_SCREEN.png) |
+Flujo Lógica de Pantalla
+
+
+![PS2 to Screen](https://github.com/user-attachments/assets/ebc94cb7-192e-4f99-b74d-2189e058c6c5)
+
+Datapath Lógica de Pantalla
+
+![Data Path PS2_TO_SCREEN](https://github.com/user-attachments/assets/4b6ad8c2-2fa0-4b84-86f2-c43a5e9fd4c9)
+
+Diagrama de estados Lógica de Pantalla
+
+![Diagrama de estados PS2_TO_SCREEN](https://github.com/user-attachments/assets/8c0d0adb-f47a-495a-9a36-4db3aa7fd124)
+
 
 ## Cómo usar
 
