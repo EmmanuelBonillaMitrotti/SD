@@ -8,7 +8,7 @@ El camino de las conexiones físicas se presentan a continuación:
 
 <img width="1035" height="362" alt="image" src="https://github.com/user-attachments/assets/ee028650-b43a-44d6-98da-35575289e94c" />
 
-Las pines de conexión para cada parte se presentan en las siguiente tablas:
+A continuación, se describen los pines clave para la interconexión de los tres componentes principales del sistema (Mouse PS/2, Arduino, FPGA y Panel LED).
 
 ### Conexión PS2 Mouse - ARDUINO UNO
 
