@@ -58,6 +58,19 @@ Esta es la interfaz de hardware donde la FPGA actúa como el controlador de vide
 
 Esta sección detalla el funcionamiento interno de los módulos lógicos y protocolos utilizados en el proyecto.
 
+```
+paint_top
+├── mouse_rx       # Recibe 3 bytes del mouse por UART
+│   └── uart       # Módulo UART base
+├── ctrl_paint     # FSM de pintado (cursor + pintura)
+├── memory         # Framebuffer dual-port
+└── ctrl_panel     # FSM del panel LED
+    ├── count      # Contadores (fila, columna, delay, index)
+    ├── lsr_led    # Registro de desplazamiento para delay
+    ├── comp_4k    # Comparador de igualdad
+    └── mux        # Multiplexor de bits RGB
+```
+
 ### 1. Protocolo PS/2 (Mouse)
 
 El protocolo PS/2 utiliza dos líneas (Clock y Data) para la transmisión serial síncrona de datos desde el dispositivo (Mouse) hacia el host (Arduino). El host lee los datos en el flanco de bajada del reloj.
