@@ -82,6 +82,7 @@ Esta es la interfaz de hardware donde la FPGA actúa como el controlador de vide
 | GND | GND | Tierra |
 | GND | N | (GND o Pin sin uso) |
 
+---
 
 ## Estructura
 
