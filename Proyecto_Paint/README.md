@@ -2,6 +2,35 @@
 
 Sistema de pintado usando un mouse PS/2 conectado a un Arduino que envía datos por UART a una FPGA Tang Primer 25K, la cual controla un panel LED RGB de 64x64.
 
+El proyecto implementa una arquitectura pipeline donde la data del mouse atraviesa tres etapas principales (Adquisición, Procesamiento y Visualización) antes de afectar la pantalla LED.
+
+### 1. Adquisición de Datos (Arduino)
+
+1.  **Lectura PS/2:** El firmware del Arduino lee de forma síncrona el mouse PS/2, capturando el estado de los botones y los cambios relativos de posición ($\Delta X$ y $\Delta Y$).
+2.  **Encapsulación UART:** El Arduino ensambla estos datos en un paquete serial de **3 bytes** (`[Botones] [Delta X] [Delta Y]`). Este paquete es transmitido continuamente a 9600 baudios a través del pin TX hacia la FPGA.
+
+
+
+### 2. Procesamiento Lógico (FPGA)
+
+La FPGA (Módulo `paint.v`) maneja dos submódulos críticos que operan en serie:
+
+* **Receptor de Paquetes UART (`mouse_uart_receiver`):** Este módulo utiliza una FSM para sincronizar la llegada de los 3 bytes del paquete. Solo cuando el tercer byte es recibido, se activa la señal `data_valid`, liberando el paquete completo de movimiento a la lógica de pintado.
+* **Lógica de Pintado (`PS2_TO_SCREEN`):** Este es el núcleo del sistema, implementado como una compleja FSM.
+    * **Movimiento:** La FSM recibe $\Delta X$ y $\Delta Y$ y los suma a las coordenadas absolutas actuales del cursor ($X_{abs}, Y_{abs}$). Realiza verificaciones constantes para asegurar que $0 \le X_{abs} \le 63$ y $0 \le Y_{abs} \le 63$.
+    * **Pintado:** Si se detecta un **Clic Izquierdo**, la FSM calcula la dirección exacta de la RAM de video (generalmente $Dirección = Y_{abs} \times 64 + X_{abs}$) y activa la señal de escritura (`wr`) en la RAM para sobrescribir el píxel con el color de pintado (p. ej., Rojo).
+    * **Cursor:** El módulo también gestiona la visualización temporal del cursor, alternando entre el color de fondo y un color de cursor para indicar la posición actual.
+
+### 3. Visualización (FPGA - Controlador LED)
+
+Este proceso opera de manera **independiente y concurrente** a la lógica de pintado:
+
+* **Refresco Constante:** El **Controlador LED** (`panel_controller.v`) implementa la lógica de barrido (scan) de la matriz. Recorre cíclicamente las 32 (o 64) filas del panel.
+* **Lectura de Memoria:** Por cada ciclo de reloj y para cada fila, el controlador lee el dato de color de la RAM de video y lo desplaza (shift) hacia los *drivers* del panel LED.
+* **Sincronización:** Utiliza las señales `LATCH` (para transferir los datos desplazados a los *buffers* de salida) y `OE` (para el control de brillo y evitar el efecto *ghosting*) para mantener la imagen estable y visible, incluso mientras la lógica de pintado está actualizando píxeles individuales.
+
+---
+
 ## Conexiones Físicas
 
 El camino de las conexiones físicas se presentan a continuación:
