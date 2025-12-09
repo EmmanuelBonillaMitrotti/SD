@@ -1,9 +1,23 @@
 # Proyecto Paint - FPGA
 
 Sistema de pintado usando un mouse PS/2 conectado a un Arduino que envía datos por UART a una FPGA Tang Primer 25K, la cual controla un panel LED RGB de 64x64.
-aaaaaaaaaa
 
-<img width="1034" height="423" alt="image" src="https://github.com/user-attachments/assets/dc089d9e-c724-4609-999a-738e8db5fe8c" />
+##Conexiones Físicas
+
+El camino de las conexiones físicas se presentan a continuación:
+
+<img width="1035" height="362" alt="image" src="https://github.com/user-attachments/assets/ee028650-b43a-44d6-98da-35575289e94c" />
+
+Las pines de conexión para cada parte se presentan en las siguiente tablas:
+
+### Conexión PS2 Mouse - ARDUINO UNO
+
+| PS2 pin | ARDUINO pin |
+| :--- | :--- |
+| DATA | 5 |
+| CLK | 6 |
+| VCC | 5V |
+| GND | GND |
 
 ## Estructura
 
