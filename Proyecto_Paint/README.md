@@ -23,12 +23,16 @@ Esta sección establece la interfaz de comunicación bidireccional entre el mous
 
 ### Conexión UART: ARDUINO UNO (TX) a FPGA (RX)
 
+Esta sección define el canal de comunicación serial unidireccional por UART, utilizado para enviar los datos procesados del mouse (movimiento y botones) desde el Arduino (Transmisor) hacia el módulo UART Receptor implementado en la FPGA.
+
 | ARDUINO UNO TX pin | FPGA RX pin |
 | :---: | :---: |
 | 7 | B2 |
 | GND | GND |
 
 ### Conexión: FPGA a Panel LED
+
+Esta es la interfaz de hardware donde la FPGA actúa como el controlador de video, generando las señales de tiempo y datos para mostrar la imagen de 64x64 píxeles y el cursor del "Paint".
 
 | FPGA Pin | Panel LED Pin | Descripción |
 | :---: | :---: | :--- |
