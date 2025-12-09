@@ -58,7 +58,8 @@ Esta es la interfaz de hardware donde la FPGA actúa como el controlador de vide
 
 Esta sección detalla el funcionamiento interno de los módulos lógicos y protocolos utilizados en el proyecto.
 
-### 1. Protocolo PS/2 (Mouse)
+### 1. Protocolo PS/2 (Mouse)<img width="2692" height="6948" alt="Potocolo PS2_page-0001" src="https://github.com/user-attachments/assets/46e40f8c-6ebe-4e06-9699-1737543d14f9" />
+
 El protocolo PS/2 utiliza dos líneas (Clock y Data) para la transmisión serial síncrona de datos desde el dispositivo (Mouse) hacia el host (Arduino). El host lee los datos en el flanco de bajada del reloj.
 
 ![Diagrama Protocolo PS2]((assets/Potocolo PS2_page-0001.png)
