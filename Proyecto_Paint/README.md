@@ -18,7 +18,7 @@ La FPGA (Módulo `paint.v`) maneja dos submódulos críticos que operan en serie
 * **Receptor de Paquetes UART (`mouse_uart_receiver`):** Este módulo utiliza una FSM para sincronizar la llegada de los 3 bytes del paquete. Solo cuando el tercer byte es recibido, se activa la señal `data_valid`, liberando el paquete completo de movimiento a la lógica de pintado.
 * **Lógica de Pintado (`PS2_TO_SCREEN`):** Este es el núcleo del sistema, implementado como una compleja FSM.
     * **Movimiento:** La FSM recibe $\Delta X$ y $\Delta Y$ y los suma a las coordenadas absolutas actuales del cursor ($X_{abs}, Y_{abs}$). Realiza verificaciones constantes para asegurar que $0 \le X_{abs} \le 63$ y $0 \le Y_{abs} \le 63$.
-    * **Pintado:** Si se detecta un **Clic Izquierdo**, la FSM calcula la dirección exacta de la RAM de video (generalmente $Dirección = Y_{abs} \times 64 + X_{abs}$) y activa la señal de escritura (`wr`) en la memoria para sobrescribir el píxel con el color de pintado (p. ej., Rojo).
+    * **Pintado:** Si se detecta un **Clic Izquierdo**, la FSM calcula la dirección exacta de la memoria y activa la señal de escritura (`wr`) en la memoria para sobrescribir el píxel con el color de pintado (p. ej., Rojo).
     * **Cursor:** El módulo también gestiona la visualización temporal del cursor, alternando entre el color de fondo y un color de cursor para indicar la posición actual.
 
 ### 3. Visualización (FPGA - Controlador LED)
