@@ -56,12 +56,44 @@ Esta es la interfaz de hardware donde la FPGA actúa como el controlador de vide
 
 ## Estructura
 
-```
-Proyecto_Paint/
-├── main/           # Código Verilog para la FPGA
-├── arduino/        # Firmware del Arduino
-└── README.md
-```
+Esta sección detalla el funcionamiento interno de los módulos lógicos y protocolos utilizados en el proyecto.
+
+### 1. Protocolo PS/2 (Mouse)
+El protocolo PS/2 utiliza dos líneas (Clock y Data) para la transmisión serial síncrona de datos desde el dispositivo (Mouse) hacia el host (Arduino). El host lee los datos en el flanco de bajada del reloj.
+
+![Diagrama Protocolo PS2]((https://github.com/user-attachments/assets/763d9827-7d03-4857-9afc-720ea04060e7)
+)
+*Diagrama de flujo del funcionamiento del protocolo PS/2 implementado en el firmware.*
+
+### 2. Protocolo UART (Módulo Genérico)
+El módulo UART en la FPGA se encarga de deserializar los datos entrantes. Utiliza un sobremuestreo (16 veces la tasa de baudios) para detectar el bit de inicio y muestrear los datos en el centro del periodo de cada bit, garantizando la integridad de la recepción.
+
+* **Diagrama de Flujo:** Muestra la máquina de estados de recepción (Detección de Start Bit -> Muestreo de Bits 0-7 -> Stop Bit).
+* **Camino de Datos:** Ilustra los registros de desplazamiento y contadores utilizados.
+
+| Diagrama de Flujo UART | Camino de Datos UART |
+| :---: | :---: |
+| ![Flujo UART](assets/Protocolo_UART_Flujo.png) | ![Data Path UART](assets/Data_Path_UART.png) |
+
+### 3. Interfaz UART: Arduino a FPGA
+Este módulo superior gestiona la recepción de paquetes completos de 3 bytes provenientes del Arduino. La máquina de estados asegura que los datos se interpreten en el orden correcto: `[Byte 1: Botones]` -> `[Byte 2: Movimiento X]` -> `[Byte 3: Movimiento Y]`.
+
+* **Diagrama de Flujo:** Describe la FSM que espera secuencialmente los 3 bytes y valida la integridad del paquete.
+* **Camino de Datos:** Muestra el buffer de 3 posiciones y cómo se asignan a las señales de salida (`btn`, `delta_x`, `delta_y`).
+
+| Flujo Arduino-FPGA | Datapath Arduino-FPGA |
+| :---: | :---: |
+| ![Flujo Arduino FPGA](assets/UART_ARDUINO_FPGA.png) | ![Data Path Arduino FPGA](assets/Data_Path_UART_ARDUINO_FPGA.png) |
+
+### 4. Controlador FPGA a Pantalla (Lógica de Pintado)
+Este es el núcleo del proyecto (`PS2_TO_SCREEN`). Recibe las coordenadas del mouse, calcula la posición de memoria correspondiente en la matriz de 64x64, y actualiza el color del píxel si se detecta un clic ("Pintar"). También maneja la lógica de lectura de memoria para refrescar el panel LED continuamente.
+
+* **Diagrama de Flujo:** Detalla el algoritmo para limitar las coordenadas (0-63), calcular la dirección de memoria (`Address = Y*64 + X`) y la lógica de escritura/lectura.
+* **Camino de Datos:** Muestra los comparadores (para límites de pantalla), sumadores (para movimiento relativo) y la interfaz con la memoria de video.
+
+| Flujo Lógica de Pantalla | Datapath Lógica de Pantalla |
+| :---: | :---: |
+| ![Flujo PS2 to Screen](assets/PS2_to_Screen.png) | ![Data Path PS2 to Screen](assets/Data_Path_PS2_TO_SCREEN.png) |
 
 ## Cómo usar
 
