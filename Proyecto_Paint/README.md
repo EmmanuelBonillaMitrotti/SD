@@ -26,6 +26,27 @@ Las pines de conexión para cada parte se presentan en las siguiente tablas:
 | 7 | B2 |
 | GND | GND |
 
+### Conexión: FPGA a Panel LED
+
+| FPGA Pin | Panel LED Pin | Descripción |
+| :---: | :---: | :--- |
+| G10 | R0 | Fila 0 - Rojo |
+| G11 | G0 | Fila 0 - Verde |
+| D10 | B0 | Fila 0 - Azul |
+| B10 | R1 | Fila 1 - Rojo |
+| B11 | G1 | Fila 1 - Verde |
+| C10 | B1 | Fila 1 - Azul |
+| A10 | A | Dirección Fila A (Fila Select) |
+| A11 | B | Dirección Fila B (Fila Select) |
+| E10 | C | Dirección Fila C (Fila Select) |
+| E11 | D | Dirección Fila D (Fila Select) |
+| L11 | CLK | Señal de Reloj (Shift Clock) |
+| K11 | LATCH | Señal Latch (Strobe) |
+| K5 | OE | Output Enable (Control de Brillo) |
+| GND | GND | Tierra |
+| GND | N | (GND o Pin sin uso) |
+
+
 ## Estructura
 
 ```
