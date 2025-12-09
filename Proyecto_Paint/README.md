@@ -12,7 +12,7 @@ Las pines de conexión para cada parte se presentan en las siguiente tablas:
 
 ### Conexión PS2 Mouse - ARDUINO UNO
 
-Esta sección establece la interfaz de comunicación bidireccional entre el mouse PS/2 (utilizando el protocolo PS/2) y el microcontrolador Arduino. El Arduino leerá el movimiento y el estado de los botones del mouse. Para esto se usó el proyecto [rucek/arduino-ps2-mouse](https://github.com/rucek/arduino-ps2-mouse) |
+Esta sección establece la interfaz de comunicación bidireccional entre el mouse PS/2 (utilizando el protocolo PS/2) y el microcontrolador Arduino. El Arduino leerá el movimiento y el estado de los botones del mouse. Para realizar la conexion del Mouse PS2 al arduino UNO se usó el proyecto [rucek/arduino-ps2-mouse](https://github.com/rucek/arduino-ps2-mouse)
 
 | PS2 pin | ARDUINO pin |
 | :--- | :--- |
