@@ -63,7 +63,7 @@ Esta sección detalla el funcionamiento interno de los módulos lógicos y proto
 El protocolo PS/2 utiliza dos líneas (Clock y Data) para la transmisión serial síncrona de datos desde el dispositivo (Mouse) hacia el host (Arduino). El host lee los datos en el flanco de bajada del reloj.
 
 <img width="2692" height="6948" alt="Potocolo PS2_page-0001" src="https://github.com/user-attachments/assets/46e40f8c-6ebe-4e06-9699-1737543d14f9" />
-*Diagrama de flujo del funcionamiento del protocolo PS/2 implementado en el firmware.*
+*Diagrama de flujo del funcionamiento del protocolo PS/2*
 
 ### 2. Protocolo UART (Módulo Genérico)
 El módulo UART en la FPGA se encarga de deserializar los datos entrantes. Utiliza un sobremuestreo (16 veces la tasa de baudios) para detectar el bit de inicio y muestrear los datos en el centro del periodo de cada bit, garantizando la integridad de la recepción.
