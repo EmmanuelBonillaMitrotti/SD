@@ -147,12 +147,25 @@ Diagrama de estados
 
 ## Cómo usar
 
-1. Programar el Arduino con `arduino/mouse_uart.ino`
-2. Sintetizar y programar la FPGA con los archivos en `main/`
-3. Conectar:
-   - Mouse PS/2 al Arduino (CLK=pin6, DATA=pin5)
-   - Arduino TX (pin7) al UART RX de la FPGA (pin B2)
-   - Panel LED a los pines definidos en `constraints/tang_primer_25k.cst`
+Para desplegar y usar el proyecto, sigue estos pasos:
+
+1.  **Programar el Arduino (Firmware):**
+    * Cargar el sketch ubicado en `arduino/mouse_uart.ino` en el Arduino UNO. Este firmware se encarga de leer el mouse PS/2 y encapsular los datos de movimiento/clic en paquetes de 3 bytes que se envían por UART.
+
+2.  **Programar la FPGA (Hardware Lógico):**
+    * Sintetizar el diseño Verilog con los archivos de la carpeta `main/` (el módulo de nivel superior es `paint.v`). Asegúrate de que los archivos de *constraints* estén configurados correctamente para la placa Tang Primer 25K.
+    * Cargar el *bitstream* resultante en la FPGA.
+
+3.  **Realizar Conexiones Físicas:**
+    * Conectar el Mouse PS/2 al Arduino (usando los pines **CLK=6** y **DATA=5**).
+    * Conectar el Arduino **TX** (**pin 7**) al UART **RX** de la FPGA (**pin B2**).
+    * Conectar el **Panel LED** a los pines de la FPGA según se detalla en la sección **"Conexión: FPGA a Panel LED"**.
+
+4.  **Operación del Sistema:**
+    * Al encender el sistema, el panel LED mostrará la imagen de fondo inicial cargada desde la memoria de la FPGA.
+    * Mueve el mouse para desplazar el cursor sobre la pantalla.
+    * Presiona el **Clic Izquierdo** del mouse para pintar o cambiar el color del píxel actual.
+    * El sistema mostrará los trazos en tiempo real gracias a la alta velocidad de refresco del controlador LED.
 
 ## Funcionamiento
 
