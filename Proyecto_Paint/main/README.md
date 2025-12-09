@@ -39,6 +39,7 @@ El Arduino envía paquetes de 3 bytes:
 
 ## Síntesis
 
+aaaa
 ```bash
 make GOWIN_BOARD=primer_25k configure_tang_primer_25k
 ```
