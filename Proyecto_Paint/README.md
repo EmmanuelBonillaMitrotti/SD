@@ -40,6 +40,7 @@ Las pines de conexión para cada parte se presentan en las siguiente tablas:
 | A11 | B | Dirección Fila B (Fila Select) |
 | E10 | C | Dirección Fila C (Fila Select) |
 | E11 | D | Dirección Fila D (Fila Select) |
+| C11 | E | Dirección Fila E (Fila Select) |
 | L11 | CLK | Señal de Reloj (Shift Clock) |
 | K11 | LATCH | Señal Latch (Strobe) |
 | K5 | OE | Output Enable (Control de Brillo) |
